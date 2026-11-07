@@ -1,0 +1,48 @@
+seed: 42
+device: cpu
+
+distributed:
+  enabled: false
+  num_gpus: 1
+  visible_cuda: null
+  backend: nccl
+
+data:
+  root: /root/data/BraTS2021
+  classification_csv: null
+  image_size: [32, 32, 32]
+  train_cases: 2
+  val_cases: 1
+  test_cases: 1
+
+model:
+  in_chans: 4
+  patch_size: [16, 16, 16]
+  encoder_embed_dim: 96
+  encoder_depth: 2
+  encoder_heads: 4
+  decoder_embed_dim: 96
+  decoder_depth: 1
+  decoder_heads: 4
+  alpha: 0.4
+  beta: 0.4
+  gamma: 0.2
+  masking_mode: tristate
+  standard_mask_ratio: 0.75
+
+training:
+  epochs: 1
+  warmup_epochs: 0
+  batch_size: 1
+  num_workers: 0
+  lr: 1.5e-4
+  weight_decay: 0.05
+  clip_grad: 1.0
+  amp: false
+  save_every: 1
+  output_dir: outputs/debug_pretrain
+
+efficiency:
+  profile_gflops: false
+  profile_batch_size: 1
+  profile_input_size: [32, 32, 32]

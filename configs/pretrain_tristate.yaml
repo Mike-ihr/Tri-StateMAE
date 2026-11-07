@@ -1,0 +1,48 @@
+seed: 42
+device: null
+
+distributed:
+  enabled: True
+  num_gpus: 3
+  visible_cuda: "1,2,3"
+  backend: nccl
+
+data:
+  root: /root/data/BraTS2021
+  classification_csv: null
+  image_size: [155, 240, 240]
+  train_cases: 1000
+  val_cases: 125
+  test_cases: 126
+
+model:
+  in_chans: 4
+  patch_size: [16, 16, 16]
+  encoder_embed_dim: 768
+  encoder_depth: 12
+  encoder_heads: 12
+  decoder_embed_dim: 512
+  decoder_depth: 4
+  decoder_heads: 8
+  alpha: 0.5
+  beta: 0.3
+  gamma: 0.2
+  masking_mode: tristate
+  standard_mask_ratio: 0.75
+
+training:
+  epochs: 100
+  warmup_epochs: 10
+  batch_size: 16
+  num_workers: 8
+  lr: 1.5e-4
+  weight_decay: 0.05
+  clip_grad: 1.0
+  amp: true
+  save_every: 150
+  output_dir: outputs/pretrain_tristate/
+
+efficiency:
+  profile_gflops: true
+  profile_batch_size: 1
+  profile_input_size: [155, 240, 240]

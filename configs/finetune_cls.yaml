@@ -1,0 +1,34 @@
+seed: 42
+device: null
+
+distributed:
+  enabled: True
+  num_gpus: 2
+  visible_cuda: "1,2"
+  backend: nccl
+
+data:
+  root: /root/data/2-MICCAI_BraTS_2018/Linear_probe_Dataset
+  classification_csv: /root/data/2-MICCAI_BraTS_2018/classification.csv
+  image_size: [155, 240, 240]
+  train_cases: 228
+  val_cases: 28
+  test_cases: 29
+
+model:
+  in_chans: 4
+  num_classes: 2
+  patch_size: [16, 16, 16]
+  embed_dim: 768
+  depth: 12
+  heads: 12
+
+training:
+  epochs: 25
+  warmup_epochs: 0
+  batch_size: 8
+  num_workers: 8
+  lr: 5.0e-5
+  weight_decay: 0.05
+  pretrained: outputs/pretrain_tristate/ablations/alpha7beta1gamma2/pretrain_last.pt
+  output_dir: outputs/finetune_cls/ablations/alpha7beta1gamma2
